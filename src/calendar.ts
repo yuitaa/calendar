@@ -9,7 +9,7 @@ export class Calendar {
   ) {}
 
   async saveCalendarToFile (directory: string, filename: string): Promise<void> {
-    const outputPath = path.join(__dirname, '..', directory, filename);
+    const outputPath = path.join(__dirname, '../dist', directory, filename);
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, this.toString());
   }

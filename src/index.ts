@@ -5,7 +5,7 @@ async function main (): Promise<void> {
   // Niconico
   for (const target of niconicoTargets) {
     const calendar = new Calendar('koteiou', await getNiconicoEvents(target));
-    calendar.saveCalendarToFile('dist/niconico', `${target.type}.ical`);
+    calendar.saveCalendarToFile('niconico', `${target.type}.ical`);
   }
 }
 
