@@ -3,12 +3,15 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 export class Calendar {
+  static savedCalendarPaths: string[] = [];
+
   constructor (
     public readonly prodId: string,
     private events: CalendarEvent[] = []
   ) {}
 
   async saveCalendarToFile (directory: string, filename: string): Promise<void> {
+    Calendar.savedCalendarPaths.push(path.posix.join('/', directory, filename));
     const outputPath = path.join(__dirname, '../dist', directory, filename);
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, this.toString());
