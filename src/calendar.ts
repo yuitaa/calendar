@@ -1,10 +1,18 @@
 import { CalendarEvent } from './types/calendar';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 
 export class Calendar {
   constructor (
     public readonly prodId: string,
     private events: CalendarEvent[] = []
   ) {}
+
+  async saveCalendarToFile (directory: string, filename: string): Promise<void> {
+    const outputPath = path.join(__dirname, '..', directory, filename);
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    await fs.writeFile(outputPath, this.toString());
+  }
 
   pushEvent (event: CalendarEvent): number {
     return this.events.push(event);
