@@ -42,6 +42,8 @@ export class Calendar {
 
           if (e[key] instanceof Date) {
             l += convertDateString(e[key]);
+          } else if (typeof e[key] === 'string') {
+            l += e[key];
           } else {
             l += key.toString();
           }
