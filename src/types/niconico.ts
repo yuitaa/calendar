@@ -1,4 +1,5 @@
 export interface NiconicoTarget {
+  type: string;
   url: string;
   key: string;
   duration: number;

@@ -25,7 +25,7 @@ const sandboxTemplate = (): Context => ({
   b: (v: string): boolean => v === 'true'
 });
 
-async function getNiconicoEvents (
+export async function getNiconicoEvents (
   target: NiconicoTarget
 ): Promise<CalendarEvent[]> {
   const response = await fetch(target.url);
@@ -62,15 +62,17 @@ async function getNiconicoEvents (
     });
 }
 
-export const niconicoTargets = {
-  regular: {
+export const niconicoTargets: NiconicoTarget[] = [
+  {
+    type: 'regular',
     url: 'https://anime.nicovideo.jp/live/reserved-regular.html',
     key: 'live_reserved_regular',
     duration: 30
-  } as NiconicoTarget,
-  ikkyo: {
+  },
+  {
+    type: 'ikkyo',
     url: 'https://anime.nicovideo.jp/live/reserved-ikkyo.html',
     key: 'live_reserved_ikkyo',
     duration: 300
-  } as NiconicoTarget
-};
+  }
+];
