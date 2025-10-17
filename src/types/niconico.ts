@@ -9,7 +9,7 @@ export interface NiconicoProgram {
   title: string;
   watchUrl: string;
   contentId: string;
-  startTime: Date;
+  startTime: string;
   liveStatus?: string;
   pictureUrl?: string;
   scoreTimeshiftReserved?: number;

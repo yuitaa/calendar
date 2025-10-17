@@ -53,7 +53,7 @@ export async function getNiconicoEvents (
 
       return {
         summary: program.title,
-        dtStart: program.startTime,
+        dtStart: new Date(program.startTime),
         dtEnd,
         dtStamp: new Date(),
         uid: `${program.contentId}@koteiouCal.niconico`,
