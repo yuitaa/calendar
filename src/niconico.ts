@@ -6,7 +6,7 @@ import { CalendarEvent } from './types/calendar';
 const sandboxTemplate = (): Context => ({
   window: { TKTK: {} },
   s: (v: string): string =>
-    v.trim().replace(/&(lt|gt|amp|quot|#x27|#x60|#x2F|#x3D);/g, m => {
+    v.trim().replace(/&(lt|gt|amp|quot|#x27|#x60|#x2F|#x3D);/g, (m) => {
       return (
         {
           '&lt;': '<',
@@ -16,17 +16,17 @@ const sandboxTemplate = (): Context => ({
           '&#x27;': "'",
           '&#x60;': '`',
           '&#x2F;': '/',
-          '&#x3D;': '='
+          '&#x3D;': '=',
         }[m] || m
       );
     }),
   d_s: (v: string): string => v,
   n: (v: string): number => Number(v),
-  b: (v: string): boolean => v === 'true'
+  b: (v: string): boolean => v === 'true',
 });
 
-export async function getNiconicoEvents (
-  target: NiconicoTarget
+export async function getNiconicoEvents(
+  target: NiconicoTarget,
 ): Promise<CalendarEvent[]> {
   const response = await fetch(target.url);
 
@@ -45,9 +45,9 @@ export async function getNiconicoEvents (
 
   return programs
     .filter(
-      program => !program.title.includes('【ニコニコプレミアム会員限定】')
+      (program) => !program.title.includes('【ニコニコプレミアム会員限定】'),
     )
-    .map(program => {
+    .map((program) => {
       const dtEnd = new Date(program.startTime);
       dtEnd.setMinutes(dtEnd.getMinutes() + target.duration);
 
@@ -57,7 +57,7 @@ export async function getNiconicoEvents (
         dtEnd,
         dtStamp: new Date(),
         uid: `${program.contentId}@koteiouCal.niconico`,
-        description: program.watchUrl
+        description: program.watchUrl,
       };
     });
 }
@@ -67,12 +67,12 @@ export const niconicoTargets: NiconicoTarget[] = [
     type: 'regular',
     url: 'https://anime.nicovideo.jp/live/reserved-regular.html',
     key: 'live_reserved_regular',
-    duration: 30
+    duration: 30,
   },
   {
     type: 'ikkyo',
     url: 'https://anime.nicovideo.jp/live/reserved-ikkyo.html',
     key: 'live_reserved_ikkyo',
-    duration: 300
-  }
+    duration: 300,
+  },
 ];

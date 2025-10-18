@@ -4,11 +4,11 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { createIndexHtml } from './html';
 
-async function main (): Promise<void> {
+async function main(): Promise<void> {
   // dist を削除
   await fs.rm(path.join(__dirname, '../dist'), {
     recursive: true,
-    force: true
+    force: true,
   });
 
   // Niconico

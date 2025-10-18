@@ -5,28 +5,28 @@ import * as path from 'path';
 export class Calendar {
   static savedCalendarPaths: string[] = [];
 
-  constructor (
+  constructor(
     public readonly prodId: string,
-    private events: CalendarEvent[] = []
+    private events: CalendarEvent[] = [],
   ) {}
 
-  async saveCalendarToFile (directory: string, filename: string): Promise<void> {
+  async saveCalendarToFile(directory: string, filename: string): Promise<void> {
     Calendar.savedCalendarPaths.push(path.posix.join('/', directory, filename));
     const outputPath = path.join(__dirname, '../dist', directory, filename);
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, this.toString());
   }
 
-  pushEvent (event: CalendarEvent): number {
+  pushEvent(event: CalendarEvent): number {
     return this.events.push(event);
   }
 
-  getEvents (): CalendarEvent[] {
+  getEvents(): CalendarEvent[] {
     return structuredClone(this.events);
   }
 
-  toString (): string {
-    function convertDateString (date: Date) {
+  toString(): string {
+    function convertDateString(date: Date) {
       const icsString = date
         .toISOString()
         .replace(/-/g, '')
@@ -41,14 +41,14 @@ export class Calendar {
       'VERSION:2.0',
       `PRODID:${this.prodId}`,
       'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH'
+      'METHOD:PUBLISH',
     ];
 
     for (const e of this.events) {
       calendarData.push('BEGIN:VEVENT');
 
       calendarData.push(
-        ...Object.keys(e).map(key => {
+        ...Object.keys(e).map((key) => {
           let l = `${key.toUpperCase()}:`;
 
           if (e[key] instanceof Date) {
@@ -60,7 +60,7 @@ export class Calendar {
           }
 
           return l;
-        })
+        }),
       );
 
       calendarData.push('END:VEVENT');

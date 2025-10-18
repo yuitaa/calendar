@@ -1,4 +1,4 @@
-export function createIndexHtml (calendarPaths: string[]): string {
+export function createIndexHtml(calendarPaths: string[]): string {
   const indexHtml = `
 <!DOCTYPE html>
 <html lang="ja">
@@ -9,7 +9,7 @@ export function createIndexHtml (calendarPaths: string[]): string {
 </head>
 <body>
   <ul>${calendarPaths
-    .map(p => `<li><a href="${p}">${p}</a></li>`)
+    .map((p) => `<li><a href="${p}">${p}</a></li>`)
     .join('')}</ul>
 </body>
 </html>
